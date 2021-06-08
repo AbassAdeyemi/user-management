@@ -4,8 +4,6 @@ import com.assessment.demo.usermanagement.entity.User;
 import com.assessment.demo.usermanagement.model.UserRequestModel;
 import com.assessment.demo.usermanagement.model.UserResponseModel;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 

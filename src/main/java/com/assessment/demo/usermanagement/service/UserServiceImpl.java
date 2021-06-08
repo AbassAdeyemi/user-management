@@ -1,12 +1,17 @@
 package com.assessment.demo.usermanagement.service;
 
 import com.assessment.demo.usermanagement.entity.User;
+import com.assessment.demo.usermanagement.enumeration.Status;
 import com.assessment.demo.usermanagement.model.UserRequestModel;
 import com.assessment.demo.usermanagement.model.UserResponseModel;
 import com.assessment.demo.usermanagement.repository.UserRepository;
 import com.assessment.demo.usermanagement.transformer.UserModelTransformer;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 
 @Service
 @RequiredArgsConstructor
@@ -24,11 +29,10 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserResponseModel get(Long id) {
-       User user = userRepository.findById(id)
-               .orElseThrow(() -> new IllegalArgumentException("User not found with id: "+id));
+    public Page<UserResponseModel> getAll(Pageable pageable) {
+        return userRepository.findAllByDeactivatedIsFalse(pageable)
+                .map(userModelTransformer::fromUserModelToResponseModel);
 
-       return userModelTransformer.fromUserModelToResponseModel(user);
     }
 
     @Override
@@ -43,8 +47,10 @@ public class UserServiceImpl implements UserService{
     public void delete(Long id) {
          userRepository
                 .findById(id)
-                .ifPresentOrElse(userRepository::delete, ()-> {
-                    throw new IllegalArgumentException("User not found with id: "+id);
-                });
+                 .map(user -> {
+                     user.setStatus(Status.DEACTIVATED);
+                     user.setDateDeactivated(LocalDate.now());
+                     return userRepository.save(user);
+                 }).orElseThrow(() -> new IllegalArgumentException("User cannot be found with id: "+id));
     }
 }
