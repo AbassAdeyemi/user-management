@@ -5,8 +5,7 @@ import com.assessment.demo.usermanagement.enumeration.Status;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Data
@@ -14,6 +13,8 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "user")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String title;
     private String firstname;

@@ -3,10 +3,13 @@ package com.assessment.demo.usermanagement.model;
 import com.assessment.demo.usermanagement.enumeration.Role;
 import com.assessment.demo.usermanagement.enumeration.Status;
 import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Builder
+@Getter @Setter
 public class UserResponseModel {
     private Long id;
     private String title;

@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public Page<UserResponseModel> getAll(Pageable pageable) {
-        return userRepository.findAllByDeactivatedIsFalse(pageable)
+        return userRepository.findAllByStatusNot(Status.DEACTIVATED, pageable)
                 .map(userModelTransformer::fromUserModelToResponseModel);
 
     }
