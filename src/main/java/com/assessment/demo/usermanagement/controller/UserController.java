@@ -1,6 +1,5 @@
 package com.assessment.demo.usermanagement.controller;
 
-import com.assessment.demo.usermanagement.entity.User;
 import com.assessment.demo.usermanagement.model.UserRequestModel;
 import com.assessment.demo.usermanagement.model.UserResponseModel;
 import com.assessment.demo.usermanagement.service.UserService;

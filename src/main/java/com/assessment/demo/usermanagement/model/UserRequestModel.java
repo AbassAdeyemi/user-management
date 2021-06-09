@@ -2,6 +2,7 @@ package com.assessment.demo.usermanagement.model;
 
 import com.assessment.demo.usermanagement.enumeration.Role;
 import com.assessment.demo.usermanagement.enumeration.Status;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +10,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
-@Getter @Setter
+@Getter @Setter @Builder
 public class UserRequestModel {
     private Long id;
     private String title;

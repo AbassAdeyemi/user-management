@@ -2,8 +2,10 @@ package com.assessment.demo.usermanagement.entity;
 
 import com.assessment.demo.usermanagement.enumeration.Role;
 import com.assessment.demo.usermanagement.enumeration.Status;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -11,7 +13,9 @@ import java.time.LocalDate;
 @Data
 @Builder
 @Entity
-@Table(name = "user")
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
