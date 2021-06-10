@@ -4,17 +4,14 @@ import com.assessment.demo.usermanagement.config.EmailConfigData;
 import com.assessment.demo.usermanagement.entity.User;
 import com.assessment.demo.usermanagement.service.EmailService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
-import java.util.Properties;
 
 @Service
 @RequiredArgsConstructor
