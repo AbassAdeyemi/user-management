@@ -11,7 +11,6 @@ import java.time.LocalDate;
 @Builder
 @Getter @Setter
 public class UserResponseModel {
-    private Long id;
     private String title;
     private String firstname;
     private String lastname;

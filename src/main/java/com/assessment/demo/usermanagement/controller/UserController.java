@@ -11,6 +11,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -27,8 +29,8 @@ public class UserController {
             })
     })
     @PostMapping("/user")
-    public UserResponseModel register(@RequestBody UserRequestModel requestModel) {
-        return userService.register(requestModel);
+    public ResponseEntity<UserResponseModel> register(@RequestBody UserRequestModel requestModel) {
+        return new ResponseEntity<>(userService.register(requestModel), HttpStatus.CREATED);
     }
 
     @Operation(summary = "Get all users")
@@ -50,8 +52,8 @@ public class UserController {
             })
     })
     @PutMapping("/user")
-    public UserResponseModel update(@RequestParam(name = "id") Long id, @RequestBody UserRequestModel requestModel) {
-        return userService.update(id, requestModel);
+    public ResponseEntity<UserResponseModel> update(@RequestParam(name = "id") Long id, @RequestBody UserRequestModel requestModel) {
+        return ResponseEntity.ok(userService.update(id, requestModel));
     }
 
     @Operation(summary = "Delete a user")
@@ -61,7 +63,7 @@ public class UserController {
             })
     })
     @DeleteMapping("/user")
-    public void delete(Long id) {
+    public void delete(@RequestParam Long id) {
         userService.delete(id);
     }
 }

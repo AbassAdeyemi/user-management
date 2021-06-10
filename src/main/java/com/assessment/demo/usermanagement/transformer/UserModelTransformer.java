@@ -3,19 +3,11 @@ package com.assessment.demo.usermanagement.transformer;
 import com.assessment.demo.usermanagement.entity.User;
 import com.assessment.demo.usermanagement.model.UserRequestModel;
 import com.assessment.demo.usermanagement.model.UserResponseModel;
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 
-@Component
-@RequiredArgsConstructor
 public class UserModelTransformer {
 
-    private final PasswordEncoder passwordEncoder;
-
-    public User fromRequestModelToUserModel(UserRequestModel requestModel) {
+    public static User fromRequestModelToUserModel(UserRequestModel requestModel) {
         return User.builder()
-                .password(passwordEncoder.encode(requestModel.getPassword()))
                 .email(requestModel.getEmail())
                 .firstname(requestModel.getFirstname())
                 .lastname(requestModel.getLastname())
@@ -29,7 +21,7 @@ public class UserModelTransformer {
                 .build();
     }
 
-    public UserResponseModel fromUserModelToResponseModel(User user) {
+    public static UserResponseModel fromUserModelToResponseModel(User user) {
         return UserResponseModel.builder()
                 .email(user.getEmail())
                 .firstname(user.getFirstname())
@@ -44,6 +36,5 @@ public class UserModelTransformer {
                 .dateDeactivated(user.getDateDeactivated())
                 .build();
     }
-
 
 }

@@ -18,20 +18,19 @@ import java.time.LocalDate;
 public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
-    private final UserModelTransformer userModelTransformer;
 
     @Override
     public UserResponseModel register(UserRequestModel requestModel) {
-        User user =  userRepository.save(userModelTransformer.fromRequestModelToUserModel(requestModel));
+        User user =  userRepository.save(UserModelTransformer.fromRequestModelToUserModel(requestModel));
 
-        return userModelTransformer.fromUserModelToResponseModel(user);
+        return UserModelTransformer.fromUserModelToResponseModel(user);
 
     }
 
     @Override
     public Page<UserResponseModel> getAll(Pageable pageable) {
         return userRepository.findAll(pageable)
-                .map(userModelTransformer::fromUserModelToResponseModel);
+                .map(UserModelTransformer::fromUserModelToResponseModel);
 
     }
 
@@ -39,7 +38,10 @@ public class UserServiceImpl implements UserService{
     public UserResponseModel update(Long id, UserRequestModel requestModel) {
       return userRepository
                .findById(id)
-               .map(userModelTransformer::fromUserModelToResponseModel)
+               .map(user-> {
+                    UserModelTransformer.fromRequestModelToUserModel(requestModel);
+                   return UserModelTransformer.fromUserModelToResponseModel(userRepository.save(user));
+               })
                .orElseThrow(() -> new IllegalArgumentException("User not found with id: "+id));
     }
 
