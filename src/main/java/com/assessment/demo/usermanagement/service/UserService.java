@@ -6,9 +6,13 @@ import com.assessment.demo.usermanagement.model.UserResponseModel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import javax.mail.MessagingException;
+import java.io.UnsupportedEncodingException;
+
 public interface UserService {
-    UserResponseModel register(UserRequestModel requestModel);
+    UserResponseModel register(UserRequestModel requestModel) throws MessagingException, UnsupportedEncodingException;
     Page<UserResponseModel> getAll(Pageable pageable);
     UserResponseModel update(Long id, UserRequestModel user);
     void delete(Long id);
+    void verify(String verificationCode);
 }

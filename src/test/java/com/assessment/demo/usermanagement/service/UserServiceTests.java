@@ -6,6 +6,8 @@ import com.assessment.demo.usermanagement.enumeration.Status;
 import com.assessment.demo.usermanagement.model.UserRequestModel;
 import com.assessment.demo.usermanagement.model.UserResponseModel;
 import com.assessment.demo.usermanagement.repository.UserRepository;
+import com.assessment.demo.usermanagement.service.impl.EmailServiceImpl;
+import com.assessment.demo.usermanagement.service.impl.UserServiceImpl;
 import com.assessment.demo.usermanagement.transformer.UserModelTransformer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,6 +18,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
+import javax.mail.MessagingException;
+import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -33,6 +37,9 @@ public class UserServiceTests {
 
     @Mock
     private UserRepository userRepository;
+
+    @Mock
+    private EmailServiceImpl emailService;
 
     UserRequestModel userRequestModel = UserRequestModel.builder()
             .id(1L)
@@ -65,9 +72,9 @@ public class UserServiceTests {
     UserResponseModel tomResponseModel = UserModelTransformer.fromUserModelToResponseModel(tom);
 
     @Test
-    void shouldAddUser() {
+    void shouldAddUser() throws MessagingException, UnsupportedEncodingException {
 
-        when(userRepository.save(user)).thenReturn(user);
+        when(userRepository.save(any(User.class))).thenReturn(user);
 
         UserResponseModel savedUser = userService.register(userRequestModel);
 

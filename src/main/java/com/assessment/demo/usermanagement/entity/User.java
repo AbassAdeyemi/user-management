@@ -2,15 +2,12 @@ package com.assessment.demo.usermanagement.entity;
 
 import com.assessment.demo.usermanagement.enumeration.Role;
 import com.assessment.demo.usermanagement.enumeration.Status;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Data
+@Getter @Setter
 @Builder
 @Entity
 @NoArgsConstructor
@@ -32,4 +29,5 @@ public class User {
     private Boolean verified;
     private LocalDate dateVerified;
     private LocalDate dateDeactivated;
+    private String verificationCode;
 }

@@ -25,6 +25,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import javax.mail.MessagingException;
+import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -67,7 +69,7 @@ public class UserControllerTests {
             .build();
 
     @BeforeEach
-    void mockUp() {
+    void mockUp() throws MessagingException, UnsupportedEncodingException {
 
         User alan = UserModelTransformer.fromRequestModelToUserModel(alanRequestModel);
         UserResponseModel alanResponseModel = UserModelTransformer.fromUserModelToResponseModel(alan);

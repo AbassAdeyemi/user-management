@@ -15,6 +15,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
+import java.io.UnsupportedEncodingException;
+
 @RestController
 @RequestMapping("/api/")
 @RequiredArgsConstructor
@@ -29,7 +32,7 @@ public class UserController {
             })
     })
     @PostMapping("/user")
-    public ResponseEntity<UserResponseModel> register(@RequestBody UserRequestModel requestModel) {
+    public ResponseEntity<UserResponseModel> register(@RequestBody UserRequestModel requestModel) throws MessagingException, UnsupportedEncodingException {
         return new ResponseEntity<>(userService.register(requestModel), HttpStatus.CREATED);
     }
 
@@ -57,13 +60,19 @@ public class UserController {
     }
 
     @Operation(summary = "Delete a user")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Success", content = {
-                    @Content(mediaType = "application.json", schema = @Schema(implementation = UserRequestModel.class))
-            })
-    })
+    @ApiResponses(value =
+            @ApiResponse(responseCode = "200", description = "Success"))
     @DeleteMapping("/user")
     public void delete(@RequestParam Long id) {
         userService.delete(id);
     }
+
+    @Operation(summary = "Verify a user")
+    @ApiResponses(value =
+    @ApiResponse(responseCode = "200", description = "Success"))
+    @GetMapping("/user")
+    public void verify(@RequestParam String code) {
+        userService.verify(code);
+    }
+
 }
